@@ -2,13 +2,10 @@
 
 BOLDGREEN="\e[1;32m"
 BOLDRED="\e[1;31m"
-BOLDBLUE="\e[1;96m"
+BOLDCYAN="\e[1;36m"
+BOLDBLUE="\e[1;94m"
 BOLDYELLOW="\e[1;33m"
 ENDCOLOR="\e[0m"
-
-if ! command -v figlet >/dev/null 2>&1; then
-    sudo apt install -y figlet
-fi
 
 if [ ! -f config.cfg ]; then
     echo "${BOLDRED}[-] config file not found$ENDCOLOR"
@@ -93,39 +90,50 @@ function show_gui() {
 		CONFIG_STATUS="${BOLDRED}No .config found$ENDCOLOR"
 	fi
 	clear
-	echo -e "\e[1;93m"
-	figlet Kernel Builder
-	echo -e "\e[0m"
-	echo -e "${BOLDGREEN}By: ${BOLDYELLOW}Karam (karamdev1)$ENDCOLOR"
-	echo -e "${BOLDGREEN}Version: ${BOLDYELLOW}v2$ENDCOLOR"
-	echo
-	echo -e "${BOLDGREEN}ARCH: $BOLDYELLOW${ARCH}$ENDCOLOR"
-	echo -e "${BOLDGREEN}CC Version: ${BOLDYELLOW}$CCVersion$ENDCOLOR"
-	echo -e "${BOLDGREEN}CLANG_TRIPLE: ${BOLDYELLOW}$(basename $CLANG_TRIPLE)$ENDCOLOR"
-	echo -e "${BOLDGREEN}CROSS_COMPILE: ${BOLDYELLOW}$(basename $CROSS_COMPILE)$ENDCOLOR"
+	echo -e "$BOLDBLUE"
+	echo -e "\t┌─────────────────────────────────────────────────────┐"
+    echo -e "\t│  ██╗  ██╗███████╗██████╗ ███╗   ██╗███████╗██╗      │"
+    echo -e "\t│  ██║ ██╔╝██╔════╝██╔══██╗████╗  ██║██╔════╝██║      │"
+    echo -e "\t│  █████╔╝ █████╗  ██████╔╝██╔██╗ ██║█████╗  ██║      │"
+    echo -e "\t│  ██╔═██╗ ██╔══╝  ██╔══██╗██║╚██╗██║██╔══╝  ██║      │"
+    echo -e "\t│  ██║  ██╗███████╗██║  ██║██║ ╚████║███████╗███████╗ │"
+    echo -e "\t│  ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝ │"
+    echo -e "\t├─────────────────────────────────────────────────────┤"
+    echo -e "\t│          B U I L D E R   V 2 . 1                    │"
+    echo -e "\t├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR                     STATUS                          $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}By: ${BOLDYELLOW}Karam (karamdev1)$ENDCOLOR                                $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}Version: ${BOLDYELLOW}v2.1$ENDCOLOR                                        $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│                                                     │$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}ARCH: $BOLDYELLOW${ARCH}$ENDCOLOR                                          $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}CC Version: ${BOLDYELLOW}$CCVersion$ENDCOLOR                                   $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}CLANG_TRIPLE: ${BOLDYELLOW}$(basename $CLANG_TRIPLE)$ENDCOLOR                     $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}CROSS_COMPILE: ${BOLDYELLOW}$(basename $CROSS_COMPILE)$ENDCOLOR                    $BOLDBLUE│$ENDCOLOR"
 	if [[ $CROSS_COMPILE_ARM32 ]] then
-		echo -e "${BOLDGREEN}CROSS_COMPILE_ARM32: ${BOLDYELLOW}$(basename $CROSS_COMPILE_ARM32)$ENDCOLOR"
+		echo -e "\t$BOLDBLUE│${BOLDCYAN}CROSS_COMPILE_ARM32: ${BOLDYELLOW}$(basename $CROSS_COMPILE_ARM32)$ENDCOLOR              $BOLDBLUE│$ENDCOLOR"
 	fi
-	echo -e "${BOLDGREEN}Kernel Config: ${CONFIG_STATUS}$ENDCOLOR"
-	echo
-	echo -e "$BOLDGREEN|-----------------------------------------------------|$ENDCOLOR"
-	echo -e "$BOLDGREEN| Actions:                                            |$ENDCOLOR"
-	echo -e "$BOLDGREEN|-------------------${ENDCOLOR}Kernel$BOLDGREEN----------------------------|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}1$ENDCOLOR] Compile Kernel                           $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}2$ENDCOLOR] Compile Module $BOLDBLUE(Prepare before Compile!) $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}3$ENDCOLOR] Prepare Module                           $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}4$ENDCOLOR] Copy Modules   $BOLDBLUE(Compile before Copy!)    $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|-----------------------------------------------------|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}5$ENDCOLOR] Clean Kernel    $BOLDBLUE(Clean & Mrproper)       $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}6$ENDCOLOR] Apply Defconfig $BOLDBLUE(Selection in Config)    $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|-----------------------------------------------------|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}7$ENDCOLOR] Edit Config $BOLDBLUE(MENUCONFIG) $BOLDYELLOW(GOOD)          $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}8$ENDCOLOR] Edit Config $BOLDBLUE(NCONFIG) $BOLDGREEN(BEST)             $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}9$ENDCOLOR] Save .config as new defconfig            $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|-------------------${ENDCOLOR}Script$BOLDGREEN----------------------------|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDRED}E$ENDCOLOR] Exit Builder                             $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|        $ENDCOLOR[${BOLDBLUE}G$ENDCOLOR] Open the creator's github page           $BOLDGREEN|$ENDCOLOR"
-	echo -e "$BOLDGREEN|-------------------${ENDCOLOR}End$BOLDGREEN-------------------------------|$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│${BOLDCYAN}Kernel Config: ${CONFIG_STATUS}$ENDCOLOR                      $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│                                                     │$ENDCOLOR"
+	echo -e "\t$BOLDBLUE├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR                      KERNEL                         $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}1$ENDCOLOR] Compile Kernel from scratch                      $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}2$ENDCOLOR] Compile Kernel from last run                     $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}3$ENDCOLOR] Compile Module     $BOLDCYAN(Auto prepares!)$ENDCOLOR              $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}4$ENDCOLOR] Prepare Module                                   $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}5$ENDCOLOR] Copy Modules       $BOLDCYAN(Compile First!)$ENDCOLOR              $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}6$ENDCOLOR] Apply Defconfig                                  $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}7$ENDCOLOR] Edit Config                                      $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}8$ENDCOLOR] Save config as new defconfig                     $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}0$ENDCOLOR] Clean Environment                                $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│                                                     │$ENDCOLOR"
+	echo -e "\t$BOLDBLUE├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR                      OTHER                          $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE├─────────────────────────────────────────────────────┤$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDRED}E$ENDCOLOR] Exit Builder                                     $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE│$ENDCOLOR[${BOLDCYAN}G$ENDCOLOR] Open the creator's github page                   $BOLDBLUE│$ENDCOLOR"
+	echo -e "\t$BOLDBLUE└─────────────────────────────────────────────────────┘$ENDCOLOR"
 	echo
 }
 
@@ -233,9 +241,8 @@ function applyDefconfig() {
 }
 
 function editConfig() {
-	local config="$1"
-	echo -e "$BOLDGREEN[+] Editing Config (${config^^})$ENDCOLOR"
-	make -C "$KDIR" O="$OUT_DIR" $BUILDER_ENV $BUILDER_ENV_2 $config -j"$(nproc)"
+	echo -e "$BOLDGREEN[+] Editing Config$ENDCOLOR"
+	make -C "$KDIR" O="$OUT_DIR" $BUILDER_ENV $BUILDER_ENV_2 nconfig -j"$(nproc)"
 }
 
 function saveConfig() {
@@ -279,36 +286,39 @@ function saveConfig() {
 
 while true; do
 	show_gui
-	echo -ne "${BOLDGREEN}Enter the action: $ENDCOLOR"
+	echo -ne "${BOLDCYAN}Enter the action [0-8/E/G]: $ENDCOLOR"
 	read action
 
 	case $action in
 		1)
+			cleanKernel
+			applyDefconfig
 			compileKernel
 			;;
 		2)
-			compileModules
+			compileKernel
 			;;
 		3)
 			prepareModules
+			compileModules
 			;;
 		4)
-			copyModules
+			prepareModules
 			;;
 		5)
-			cleanKernel
+			copyModules
 			;;
 		6)
 			applyDefconfig
 			;;
 		7)
-			editConfig "menuconfig"
+			editConfig
 			;;
 		8)
-			editConfig "nconfig"
-			;;
-		9)
 			saveConfig
+			;;
+		0)
+			cleanKernel
 			;;
 		E|e)
 			echo -e "$BOLDRED[!] Exiting!!$ENDCOLOR"
