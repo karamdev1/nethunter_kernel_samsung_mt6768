@@ -1,4 +1,4 @@
-# NetHunter Kernel v4.2 — SM-A325 variants, SM-A225 variants, SM-E225F and SM-M225FV
+# NetHunter Kernel v4.3 — SM-A325 variants, SM-A225 variants, SM-E225F and SM-M225FV
 
 Custom NetHunter-ready kernel built for stability, performance tuning, and external adapter penetration testing.
 
@@ -23,7 +23,7 @@ Not affiliated with Offensive Security or Kali NetHunter.
 
 ## Key Features
 
-* Integrated **KernelSU Next v3.2.0-legacy** (Working & Tested)
+* Integrated **ReSukiSU v4.2.0 (35179) + SuSFS v2.3.0** (Working & Tested)
 * SELinux **Permissive**
 * USB OTG Support
 * USB HID Support (Emulating Keyboard and Mouse)
