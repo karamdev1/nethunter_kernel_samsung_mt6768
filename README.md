@@ -112,7 +112,7 @@ pahole python3 python-is-python3 openjdk-17-jdk rsync cpio kmod zstd
 ### Toolchain
 
 ```
-git clone https://github.com/EmanuelCN/zyc_clang-14.git ~/toolchains/zyc-clang-14
+git clone https://github.com/karamdev1/zyc-clang-14-20260619.git ~/toolchains/zyc-clang-14-20260619
 ```
 
 ---
